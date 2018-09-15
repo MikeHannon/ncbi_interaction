@@ -41,6 +41,7 @@ export default class TaxonomicTree extends React.Component {
   return <div>
 
   {this.lineageMap.map((level, idx)=> (
+    // @TODO - make this a component
     <div style={{display:'flex', flex: '1', ...BLOCK_STYLING }} key={level+CLASSIFICATIONS[idx]}>
       <p style={{flex: '1', marginTop: '3', ...BLOCK_STYLING}} className={CLASSIFICATIONS[idx]} > 
       {CLASSIFICATIONS[idx]} 
