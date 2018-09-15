@@ -6,15 +6,28 @@ export default class TaxonomyLookup extends React.Component {
   state = {taxonomyResults:[], error:false, selectedTaxon: {}}
   
   onChange = (event)=>{
-    if (event.keyCode === 13){
-      const target = this.selectTarget(event.target.value)
-      if (target){
-        this.setState((state)=>({taxonomyResults: [], selectedTaxon: target[0]}))
-      }
+   
+    const target = this.selectTarget(event.target.value)
+    if (target.length !== 0){
+      this.setState((state)=>({taxonomyResults: [], selectedTaxon: target[0]}))
     }
-    // check LRU cache here before making this call.
-    axios.post(`http://takehome.onecodex.com/api/taxonomy_search`, {query:event.target.value}).then((result)=>{
-      this.setState((state)=>({error:false, taxonomyResults: result.data.results}))
+
+    const from_cache = this.props.local_cache.get(event.target.value)
+        
+    if (from_cache){
+      this.setState((state)=>({error:false, taxonomyResults: from_cache}))
+      return
+    }
+    const value = event.target.value;
+    axios.post(`http://takehome.onecodex.com/api/taxonomy_search`, {query:value}).then((result)=>{
+      const cache = this.props.local_cache;
+      this.setState(
+        (state)=>({error:false, taxonomyResults: result.data.results}),
+        ()=>{
+          cache.set(value, result.data.results )
+        }
+        
+        )
     }).catch(err=>{
       this.setState((state)=>{error:true})
     })

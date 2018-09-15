@@ -26,7 +26,7 @@ export default class TaxonomicTree extends React.Component {
   }
 
   updateTaxonInformation = ()=>{
-    axios.get(`http://takehome.onecodex.com/api/taxonomy/${this.props.selectedTaxon.id}`).then(result=>{console.log(result)})
+    // axios.get(`http://takehome.onecodex.com/api/taxonomy/${this.props.selectedTaxon.id}`).then(result=>{DATA TO BUILD RELATIONSHIP TREE})
     axios.get(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=taxonomy&id=${this.props.selectedTaxon.id}`).then(result=>{
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(result.data,"text/xml");
