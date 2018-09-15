@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TaxonomyLookup from './components/taxonomy_lookup'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div id='ocxlogo' style={{width: '12%', marginLeft: 'auto', marginRight: 'auto', marginTop: '5%', marginBottom: '3%'}}><img src='https://www.onecodex.com/static/images/uploader_logo.png' style={{width: '100%'}} alt='One Codex Logo'></img></div>
+      <div style={{width: '50%', marginLeft: 'auto', marginRight: 'auto', marginBottom: '2%'}}><h1 style={{textAlign: 'center'}}>Taxonomy Lookup</h1></div>
+      <br />
+      <TaxonomyLookup/>
+       
       </div>
     );
   }
