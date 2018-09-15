@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TaxonomyLookup from './components/taxonomy_lookup'
+import TaxonomyLookup from './components/taxonomy-lookup'
 
 class App extends Component {
   render() {
