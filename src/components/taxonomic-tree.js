@@ -14,6 +14,10 @@ const CLASSIFICATIONS = [
 ]
 export default class TaxonomicTree extends React.Component {
   state = {lineage:[]}
+  get lineageMap(){
+    return this.props.selectedTaxon.rank === 'species' ? 
+    this.state.lineage.slice(0, 7) :  this.state.lineage
+  }
   componentDidMount(){
     this.updateTaxonInformation()
    
@@ -35,7 +39,15 @@ export default class TaxonomicTree extends React.Component {
   }
   render(){
   return <div>
-  {this.state.lineage.map((level, idx)=> (<p className={CLASSIFICATIONS[idx]} key={level+CLASSIFICATIONS[idx]}> {CLASSIFICATIONS[idx]} - {level} </p>) )}
+
+  {this.lineageMap.map((level, idx)=> (<p className={CLASSIFICATIONS[idx]} key={level+CLASSIFICATIONS[idx]}> 
+    {CLASSIFICATIONS[idx]} - {level} 
+  </p>) )}
+
+  { this.props.selectedTaxon.rank === 'species' ? 
+  <p> {this.props.selectedTaxon.rank} - <i> {this.props.selectedTaxon.name} </i></p>  : 
+  <p> {this.props.selectedTaxon.rank} - {this.props.selectedTaxon.name} </p> }
+  
   <LearnMore name={this.props.selectedTaxon.name} id={this.props.selectedTaxon.id}/>
   </div>
   }

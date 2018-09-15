@@ -39,13 +39,18 @@ export default class TaxonomyLookup extends React.Component {
 
   render(){
     return(
-      <div>
-       <input type='text' onKeyUp={this.onChange} list={'taxa'}/>
-       <datalist id='taxa'>
-        {this.state.taxonomyResults && this.state.taxonomyResults.map((taxa)=><Option key={taxa.id} taxa={taxa}/>)}
-       </datalist>
-       {this.state.error && <p>No results match your query</p>}
-       {Object.keys(this.state.selectedTaxon).length ? <TaxonomicTree selectedTaxon = {this.state.selectedTaxon} /> : null}
+      <div style={{display: 'flex'}}>
+      <div style={{flex: 1}}>
+        <input style={{width: '80%', marginLeft: '10%'}} type='text' onKeyUp={this.onChange} list={'taxa'} placeholder={'Search for your organism'}/>
+        <datalist id='taxa'>
+          {this.state.taxonomyResults && this.state.taxonomyResults.map((taxa)=><Option key={taxa.id} taxa={taxa}/>)}
+        </datalist>
+        {this.state.error && <p>No results match your query</p>}
+       </div>
+       <div style={{flex: 1}}>
+        {Object.keys(this.state.selectedTaxon).length ? <TaxonomicTree selectedTaxon = {this.state.selectedTaxon} /> : null}
+       </div>
+       
       </div>
     
     )
