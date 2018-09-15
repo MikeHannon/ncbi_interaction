@@ -10,13 +10,13 @@ const CLASSIFICATIONS = [
   'order',
   'family',
   'genus',
-  'species'
 ]
+const BLOCK_STYLING = {marginTop: '3', marginBottom: '3', marginBlockStart: '4px',  marginBlockEnd: '4px'}
 export default class TaxonomicTree extends React.Component {
   state = {lineage:[]}
   get lineageMap(){
-    return this.props.selectedTaxon.rank === 'species' ? 
-    this.state.lineage.slice(0, 7) :  this.state.lineage
+    return this.props.selectedTaxon.rank === 'species' && this.state.lineage.length === 8 ? 
+    this.state.lineage.slice(0, 8) :  this.state.lineage
   }
   componentDidMount(){
     this.updateTaxonInformation()
@@ -40,9 +40,15 @@ export default class TaxonomicTree extends React.Component {
   render(){
   return <div>
 
-  {this.lineageMap.map((level, idx)=> (<p className={CLASSIFICATIONS[idx]} key={level+CLASSIFICATIONS[idx]}> 
-    {CLASSIFICATIONS[idx]} - {level} 
-  </p>) )}
+  {this.lineageMap.map((level, idx)=> (
+    <div style={{display:'flex', flex: '1', ...BLOCK_STYLING }} key={level+CLASSIFICATIONS[idx]}>
+      <p style={{flex: '1', marginTop: '3', ...BLOCK_STYLING}} className={CLASSIFICATIONS[idx]} > 
+      {CLASSIFICATIONS[idx]} 
+      </p> 
+      <p style={{flex: '3', marginTop: '3', ...BLOCK_STYLING}}> 
+        {level} 
+      </p>
+    </div> ))}
 
   { this.props.selectedTaxon.rank === 'species' ? 
   <p> {this.props.selectedTaxon.rank} - <i> {this.props.selectedTaxon.name} </i></p>  : 
