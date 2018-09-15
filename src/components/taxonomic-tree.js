@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import LearnMore from './learn-more'
 
 const CLASSIFICATIONS = [
   'root',
@@ -35,6 +36,7 @@ export default class TaxonomicTree extends React.Component {
   render(){
   return <div>
   {this.state.lineage.map((level, idx)=> (<p className={CLASSIFICATIONS[idx]} key={level+CLASSIFICATIONS[idx]}> {CLASSIFICATIONS[idx]} - {level} </p>) )}
+  <LearnMore name={this.props.selectedTaxon.name} id={this.props.selectedTaxon.id}/>
   </div>
   }
 }
